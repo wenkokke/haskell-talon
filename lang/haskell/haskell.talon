@@ -29,43 +29,43 @@ has type:
 
 con <user.text>:
   constructor_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
-  insert(f"{constructor_name} ")
+  insert("{constructor_name} ")
 
 var <user.text>:
   variable_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
-  insert(f"{variable_name} ")
+  insert("{variable_name} ")
 
 (deaf | define) data [type] <user.text>:
   type_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
-  insert(f"data {type_name}")
+  insert("data {type_name}")
   edit.line_insert_down()
   insert("= ")
 
 (deaf | define) type [alias] <user.text>:
   type_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
-  insert(f"type {type_name} = ")
+  insert("type {type_name} = ")
 
 (deaf | define) new type <user.text>:
   type_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
-  insert(f"newtype {type_name} = {type_name} ")
+  insert("newtype {type_name} = {type_name} ")
 
 (deaf | define) (funk | function) <user.text>:
   function_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
-  insert(f"{function_name} :: ")
+  insert("{function_name} :: ")
   edit.line_insert_down()
-  insert(f"{function_name} = _")
+  insert("{function_name} = _")
   edit.up()
   edit.line_end()
 
 pragma:
-  insert("{-#  #-}")
+  insert("{{-#  #-}}")
   edit.left()
   edit.left()
   edit.left()
   edit.left()
 
 language pragma:
-  insert("{-# LANGUAGE  #-}")
+  insert("{{-# LANGUAGE  #-}}")
   edit.left()
   edit.left()
   edit.left()
