@@ -12,45 +12,45 @@ tag(): user.code_operators_math
 
 # support for operators_math (extended)
 op (integral | integer) divide:
-  user.code_operator_division_integral()
+  insert(" `div` ")
 op (fractional | real) divide :
-  user.code_operator_division_fractional()
+  insert(" / ")
 op (integral | integer) mod:
-  user.code_operator_modulo_integral()
+  insert(" `mod` ")
 op (integral | integer) (power | exponent):
-  user.code_operator_exponent_integral()
+  insert(" ^ ")
 op (fractional | real) (power | exponent):
-  user.code_operator_exponent_fractional()
+  insert(" ^^ ")
 op (floating | float) (power | exponent):
-  user.code_operator_exponent_floating()
+  insert(" ** ")
 
 has type:
   insert(" :: ")
 
 con <user.text>:
-  constructor_name = format_constructor(text)
+  constructor_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
   insert(f"{constructor_name} ")
 
 var <user.text>:
-  variable_name = format_variable(text)
+  variable_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
   insert(f"{variable_name} ")
 
 (deaf | define) data [type] <user.text>:
-  type_name = format_constructor(text)
+  type_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
   insert(f"data {type_name}")
   edit.line_insert_down()
   insert("= ")
 
 (deaf | define) type [alias] <user.text>:
-  type_name = format_constructor(text)
+  type_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
   insert(f"type {type_name} = ")
 
 (deaf | define) new type <user.text>:
-  type_name = format_constructor(text)
+  type_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
   insert(f"newtype {type_name} = {type_name} ")
 
 (deaf | define) (funk | function) <user.text>:
-  function_name = format_variable(text)
+  function_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
   insert(f"{function_name} :: ")
   edit.line_insert_down()
   insert(f"{function_name} = _")

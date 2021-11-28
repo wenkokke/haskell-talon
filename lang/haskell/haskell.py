@@ -9,15 +9,6 @@ mode: user.auto_lang
 and code.language: haskell
 """
 
-
-def format_constructor(text: str):
-    return actions.user.formatted_text(text, "PRIVATE_CAMEL_CASE")
-
-
-def format_variable(text: str):
-    return actions.user.formatted_text(text, "PUBLIC_CAMEL_CASE")
-
-
 @ctx.action_class("user")
 class UserActions:
 
@@ -62,32 +53,14 @@ class UserActions:
     def code_operator_multiplication():
         actions.insert(" * ")
 
-    def code_operator_exponent_integral():
+    def code_operator_exponent():
         actions.insert(" ^ ")
 
-    def code_operator_exponent_fractional():
-        actions.insert(" ^^ ")
-
-    def code_operator_exponent_floating():
-        actions.insert(" ** ")
-
-    def code_operator_exponent():
-        actions.user.code_operator_exponent_integral()
-
-    def code_operator_division_integral():
+    def code_operator_division():
         actions.insert(" `div` ")
 
-    def code_operator_division_fractional():
-        actions.insert(" / ")
-
-    def code_operator_division():
-        actions.user.code_operator_division_integral()
-
-    def code_operator_modulo_integral():
-        actions.insert(" `mod` ")
-
     def code_operator_modulo():
-        actions.user.code_operator_modulo_integral()
+        actions.insert(" `mod` ")
 
     def code_operator_equal():
         actions.insert(" == ")
