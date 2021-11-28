@@ -25,25 +25,48 @@ op (floating | float) (power | exponent):
   user.code_operator_exponent_floating()
 
 has type:
-  user.code_operator_has_type()
-
-(deaf | define) data [type] <user.text>:
-  user.code_insert_data_type_declaration(text)
-(deaf | define) type [alias] <user.text>:
-  user.code_insert_type_declaration(text)
-(deaf | define) new type <user.text>:
-  user.code_insert_newtype_declaration(text)
-(deaf | define) (funk | function) <user.text>:
-  user.code_insert_function_declaration(text)
+  insert(" :: ")
 
 con <user.text>:
-  user.code_insert_constructor(text)
+  constructor_name = format_constructor(text)
+  insert(f"{constructor_name} ")
 
 var <user.text>:
-  user.code_insert_variable(text)
+  variable_name = format_variable(text)
+  insert(f"{variable_name} ")
+
+(deaf | define) data [type] <user.text>:
+  type_name = format_constructor(text)
+  insert(f"data {type_name}")
+  edit.line_insert_down()
+  insert("= ")
+
+(deaf | define) type [alias] <user.text>:
+  type_name = format_constructor(text)
+  insert(f"type {type_name} = ")
+
+(deaf | define) new type <user.text>:
+  type_name = format_constructor(text)
+  insert(f"newtype {type_name} = {type_name} ")
+
+(deaf | define) (funk | function) <user.text>:
+  function_name = format_variable(text)
+  insert(f"{function_name} :: ")
+  edit.line_insert_down()
+  insert(f"{function_name} = _")
+  edit.up()
+  edit.line_end()
 
 pragma:
-  user.code_insert_pragma()
+  insert("{-#  #-}")
+  edit.left()
+  edit.left()
+  edit.left()
+  edit.left()
 
 language pragma:
-  user.code_insert_language_pragma()
+  insert("{-# LANGUAGE  #-}")
+  edit.left()
+  edit.left()
+  edit.left()
+  edit.left()
