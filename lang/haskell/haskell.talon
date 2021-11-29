@@ -57,16 +57,16 @@ var <user.text>:
   edit.up()
   edit.line_end()
 
-import <user.text>:
-  module_name = user.formatted_text(text, "DOT_SEPARATED,CAPITALIZE_ALL_WORDS")
+import [<user.text>]:
+  module_name = user.formatted_text(text or "", "DOT_SEPARATED,CAPITALIZE_ALL_WORDS")
   insert("import {module_name}")
 
-using <user.text>:
+using:
   insert(" ()")
   edit.left()
 
-qualified as <user.text>:
-  module_name = user.formatted_text(text, "DOT_SEPARATED,CAPITALIZE_ALL_WORDS")
+qualified as [<user.text>]:
+  module_name = user.formatted_text(text or "", "DOT_SEPARATED,CAPITALIZE_ALL_WORDS")
   insert(" qualified as {module_name}")
 
 pragma:
