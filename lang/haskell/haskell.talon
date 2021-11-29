@@ -65,6 +65,10 @@ using:
   insert(" ()")
   edit.left()
 
+hiding:
+  insert(" hiding ()")
+  edit.left()
+
 qualified as [<user.text>]:
   module_name = user.formatted_text(text or "", "DOT_SEPARATED,CAPITALIZE_ALL_WORDS")
   insert(" qualified as {module_name}")
