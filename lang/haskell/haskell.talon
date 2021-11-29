@@ -28,29 +28,29 @@ has type:
   insert(" :: ")
 
 con <user.text>:
-  constructor_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
+  constructor_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
   insert("{constructor_name} ")
 
 var <user.text>:
-  variable_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
+  variable_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
   insert("{variable_name} ")
 
 (deaf | define) data [type] <user.text>:
-  type_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
+  type_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
   insert("data {type_name}")
   edit.line_insert_down()
   insert("= ")
 
 (deaf | define) type [alias] <user.text>:
-  type_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
+  type_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
   insert("type {type_name} = ")
 
 (deaf | define) new type <user.text>:
-  type_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
+  type_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
   insert("newtype {type_name} = {type_name} ")
 
 (deaf | define) (funk | function) <user.text>:
-  function_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
+  function_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
   insert("{function_name} :: ")
   edit.line_insert_down()
   insert("{function_name} = _")
