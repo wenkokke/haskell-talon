@@ -13,7 +13,7 @@ tag(): user.code_operators_math
 # support for operators_math (extended)
 op (integral | integer) divide:
   insert(" `div` ")
-op (fractional | real) divide :
+op (fractional | real) divide:
   insert(" / ")
 op (integral | integer) mod:
   insert(" `mod` ")
@@ -24,12 +24,32 @@ op (fractional | real) (power | exponent):
 op (floating | float) (power | exponent):
   insert(" ** ")
 
+op implies:
+  insert(" => ")
+
+op (to | arrow):
+  insert(" -> ")
+
+op apply:
+  insert(" $ ")
+
+op map:
+    insert(" <$> ")
+
 has type:
   insert(" :: ")
 
-con <user.text>:
+make <user.text> dot:
+  constructor_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
+  insert("{constructor_name}.")
+
+make <user.text>:
   constructor_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
   insert("{constructor_name} ")
+
+var <user.text> dot:
+  variable_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
+  insert("{variable_name}.")
 
 var <user.text>:
   variable_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
@@ -41,15 +61,15 @@ var <user.text>:
   edit.line_insert_down()
   insert("= ")
 
-(deaf | define) type [alias] <user.text>:
+(deaf | define) type [alias] <user.text>$:
   type_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
   insert("type {type_name} = ")
 
-(deaf | define) new type <user.text>:
+(deaf | define) new type <user.text>$:
   type_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
   insert("newtype {type_name} = {type_name} ")
 
-(deaf | define) (funk | function) <user.text>:
+(deaf | define) (funk | function) <user.text>$:
   function_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
   insert("{function_name} :: ")
   edit.line_insert_down()
@@ -57,7 +77,43 @@ var <user.text>:
   edit.up()
   edit.line_end()
 
-import [<user.text>]:
+(deaf | define) class <user.text>$:
+  class_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
+  insert("class {class_name} where")
+  edit.left()
+  repeat(5)
+
+(deaf | define) instance <user.text>$:
+  instance_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
+  insert("instance {instance_name} where")
+  edit.left()
+  repeat(5)
+
+(deaf | define) type family <user.text>$:
+  type_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
+  insert("type family {type_name} ")
+
+(deaf | define) type family <user.text>$:
+  type_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
+  insert("type instance {type_name}  = ")
+  edit.left()
+  repeat(2)
+
+(deaf | define) closed type family <user.text>$:
+  type_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
+  insert("type family {type_name} where")
+  edit.left()
+  repeat(5)
+
+deriving instance <user.text> via <user.text>$:
+  instance_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
+  insert("deriving instance {instance_name}")
+
+deriving instance <user.text>$:
+  instance_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
+  insert("deriving instance {instance_name}")
+
+import [<user.text>]$:
   module_name = user.formatted_text(text or "", "DOT_SEPARATED,CAPITALIZE_ALL_WORDS")
   insert("import {module_name}")
 
@@ -76,13 +132,9 @@ qualified as [<user.text>]:
 pragma:
   insert("{{-#  #-}}")
   edit.left()
-  edit.left()
-  edit.left()
-  edit.left()
+  repeat(3)
 
 language pragma:
   insert("{{-# LANGUAGE  #-}}")
   edit.left()
-  edit.left()
-  edit.left()
-  edit.left()
+  repeat(3)
