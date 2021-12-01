@@ -39,19 +39,19 @@ op map:
 has type:
   insert(" :: ")
 
-make <user.text> dot:
+make <user.text> dot$:
   constructor_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
   insert("{constructor_name}.")
 
-make <user.text>:
+make <user.text>$:
   constructor_name = user.formatted_text(text, "PUBLIC_CAMEL_CASE")
   insert("{constructor_name} ")
 
-var <user.text> dot:
+var <user.text> dot$:
   variable_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
   insert("{variable_name}.")
 
-var <user.text>:
+var <user.text>$:
   variable_name = user.formatted_text(text, "PRIVATE_CAMEL_CASE")
   insert("{variable_name} ")
 
@@ -117,24 +117,24 @@ import [<user.text>]$:
   module_name = user.formatted_text(text or "", "DOT_SEPARATED,CAPITALIZE_ALL_WORDS")
   insert("import {module_name}")
 
-using:
+^using:
   insert(" ()")
   edit.left()
 
-hiding:
+^hiding:
   insert(" hiding ()")
   edit.left()
 
-qualified as [<user.text>]:
+^qualified as [<user.text>]:
   module_name = user.formatted_text(text or "", "DOT_SEPARATED,CAPITALIZE_ALL_WORDS")
   insert(" qualified as {module_name}")
 
-pragma:
+^pragma:
   insert("{{-#  #-}}")
   edit.left()
   repeat(3)
 
-language pragma:
+^language pragma:
   insert("{{-# LANGUAGE  #-}}")
   edit.left()
   repeat(3)
